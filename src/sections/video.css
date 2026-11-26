@@ -1,0 +1,36 @@
+/* vídeo do meio: preto e branco (já gravado assim no arquivo), cobrindo a seção inteira.
+   As margens negativas estendem o vídeo por trás de "Antes de reagir" e "Leia os sinais";
+   os textos ficam acima pelo z-index 2 da base. */
+.video {
+  position: relative;
+  z-index: 1;
+  height: 145vh;
+  margin-top: -95vh;
+  margin-bottom: -50vh;
+  overflow: hidden;
+}
+.video__moldura {
+  position: absolute;
+  inset: 0;
+  background: var(--preto);
+  /* fade grande nas duas pontas, na cor do fundo do site */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 55%, transparent 100%);
+}
+.video__moldura video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+  opacity: 0.1;
+}
+
+@media (max-width: 760px) {
+  .video {
+    height: 110vh;
+    margin-top: -52vh;
+    margin-bottom: -58vh;
+  }
+  .video__moldura video { object-position: 50% 50%; }
+}

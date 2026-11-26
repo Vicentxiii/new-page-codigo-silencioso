@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>O Código Silencioso — Yasmin Tardelli &amp; Vicente Czar</title>
+  <meta name="description" content="Um guia reflexivo para reconhecer padrões emocionais, observar dinâmicas relacionais e preservar sua clareza. E-book em PDF + checklist por R$ 29,90.">
+  <meta name="theme-color" content="#161412">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- primeira pintura: nunca a página crua. O tema (?tema=) e o fundo ligam aqui, antes de qualquer arquivo; a folha
+       do site vem em <link> (segura a pintura até chegar), nunca pelo JS. Nada transiciona até a página assentar. -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      var t = new URLSearchParams(location.search).get('tema');
+      if (t === 'azul' || t === 'verde') d.dataset.tema = t;
+    })();
+  </script>
+  <style>
+    html { background: #0e0d0c; }
+    body { margin: 0; }
+    html:not(.assentou) *, html:not(.assentou) ::before, html:not(.assentou) ::after { transition: none !important; }
+  </style>
+  <link rel="stylesheet" href="/src/styles/site.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- camada fixa do globo: metáfora visual para os sinais que se conectam em padrões -->
+  <canvas class="globo" aria-hidden="true"></canvas>
+  <!-- Pontos do globo em latitude e longitude; o nome é só para quem edita. -->
+  <ol class="globo__regioes" hidden data-voa="10">
+    <li data-lat="-23.5" data-lon="-46.6">América do Sul, sudeste</li>
+    <li data-lat="-3.7" data-lon="-38.5">América do Sul, nordeste</li>
+    <li data-lat="-33.4" data-lon="-70.6">América do Sul, oeste</li>
+    <li data-lat="4.7" data-lon="-74.1">América do Sul, norte</li>
+    <li data-lat="19.4" data-lon="-99.1">América do Norte, sul</li>
+    <li data-lat="38.9" data-lon="-77.4">América do Norte, leste</li>
+    <li data-lat="37.4" data-lon="-121.9">América do Norte, oeste</li>
+    <li data-lat="38.7" data-lon="-9.1">Europa, oeste</li>
+    <li data-lat="50.1" data-lon="8.7">Europa, centro</li>
+    <li data-lat="-26.2" data-lon="28.0">África, sul</li>
+    <li data-lat="1.35" data-lon="103.8">Ásia, sudeste</li>
+    <li data-lat="35.7" data-lon="139.7">Ásia, leste</li>
+  </ol>
+  <!-- ponto decorativo usado pelo movimento do globo -->
+  <span class="ponto-voo" aria-hidden="true"></span>
+
+  <!-- @secao nav -->
+
+  <main id="conteudo">
+
+    <!-- @secao hero -->
+
+    <!-- @secao regioes -->
+
+    <!-- @secao video -->
+
+    <!-- @secao dominio -->
+
+    <!-- @secao planos -->
+
+    <!-- @secao migracao -->
+
+    <!-- @secao numeros -->
+
+    <!-- @secao suporte -->
+
+    <!-- @secao fecho -->
+  </main>
+
+  <!-- @secao rodape -->
+
+  <div class="barra" aria-hidden="true"><span class="barra__polegar"></span></div>
+
+  <svg class="filtros" aria-hidden="true" width="0" height="0">
+    <filter id="borrao-x" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="0 0"/>
+    </filter>
+  </svg>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

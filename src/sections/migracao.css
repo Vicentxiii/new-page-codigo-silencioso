@@ -1,0 +1,152 @@
+/* 5. migração: a foto entra pela esquerda, esfumada no preto; texto e formulário à direita, para onde ela olha */
+.migracao {
+  position: relative;
+  min-height: 112vh;
+  display: flex;
+  align-items: center;
+}
+.migracao__foto {
+  position: absolute !important;
+  z-index: 0 !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 62%;
+  -webkit-mask-image: linear-gradient(270deg, transparent 0, #000 44%), linear-gradient(180deg, transparent 0, #000 18%, #000 80%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(270deg, transparent 0, #000 44%), linear-gradient(180deg, transparent 0, #000 18%, #000 80%, transparent 100%);
+  mask-composite: intersect;
+}
+.migracao__foto picture { display: block; height: 100%; }
+.migracao__foto img { height: 100%; object-position: 44% 60%; }
+@supports (animation-timeline: view()) {
+  .migracao__foto img {
+    height: 110%;
+    animation: paralaxe linear both;
+    animation-timeline: view();
+  }
+}
+@keyframes paralaxe {
+  from { transform: translate3d(0, -6%, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+.migracao__conteudo {
+  width: 100%;
+  padding: 14vh var(--margem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+.migracao__texto { grid-column: 7 / span 6; }
+.migracao__texto .corpo { margin-top: 20px; max-width: 38ch; }
+.migracao__texto .botao { margin-top: 30px; }
+.migracao .linha-form { grid-column: 7 / span 6; margin-top: clamp(30px, 5vh, 56px); }
+
+/* linha de formulário (img 2): rótulo pequeno, valor, fio embaixo */
+.linha-form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  column-gap: 22px;
+}
+.campo { position: relative; display: block; min-width: 0; }
+.campo__rotulo {
+  display: block;
+  margin-bottom: 6px;
+  font-stretch: var(--ui-largura);
+  font-weight: 450;
+  font-size: 12.5px;
+  color: var(--tinta-3);
+  transition: color var(--t-micro) var(--ease-snap);
+}
+.campo__input {
+  display: block;
+  width: 100%;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-stretch: var(--lead-largura);
+  font-size: 17px;
+  color: var(--tinta);
+  outline: none;
+  box-shadow: inset 0 -1px 0 var(--fio-forte);
+  caret-color: var(--acento);
+}
+.campo__input::placeholder { color: var(--tinta-3); opacity: 0.75; }
+.campo__linha {
+  display: block;
+  height: 1px;
+  margin-top: -1px;
+  background: var(--acento);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease-out);
+}
+.campo:focus-within .campo__linha,
+.campo.is-erro .campo__linha { transform: scaleX(1); }
+.campo:focus-within .campo__rotulo,
+.campo.is-cheio .campo__rotulo { color: var(--tinta-2); }
+.campo__erro {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  padding-top: 6px;
+  font-size: 12.5px;
+  color: var(--acento);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity var(--t-micro) var(--ease-snap), transform var(--t-micro) var(--ease-snap);
+}
+.campo.is-erro .campo__erro { opacity: 1; transform: none; }
+.campo.is-treme { animation: treme 0.42s var(--ease-snap); }
+.linha-form .botao { height: 44px; }
+.linha-form.is-enviando .botao .rola__a { animation: piscar 0.9s steps(1, end) infinite; }
+.linha-form__ok {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-stretch: var(--lead-largura);
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.35;
+  color: var(--tinta);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.7s var(--ease-out), transform 0.8s var(--ease-out), visibility 0s linear 0.7s;
+}
+.linha-form__ok .ponto { margin-top: 0.5em; }
+.linha-form__ok b { font-weight: 500; color: var(--acento); }
+.linha-form > .campo,
+.linha-form > .botao { transition: opacity 0.45s var(--ease-out), transform 0.5s var(--ease-out); }
+.linha-form.is-enviado > .campo,
+.linha-form.is-enviado > .botao { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+.linha-form.is-enviado .linha-form__ok { opacity: 1; visibility: visible; transform: none; transition-delay: 0.25s, 0.25s, 0s; }
+
+@media (max-width: 760px) {
+  .migracao { display: block; min-height: 0; }
+  .migracao__conteudo { display: block; padding: 0 var(--margem) 8vh; margin-top: -12vh; }
+  .linha-form { grid-template-columns: 1fr; row-gap: 26px; }
+  .linha-form .botao { justify-self: start; margin-top: 4px; }
+  .migracao__foto {
+    position: relative !important;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 62%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 16%, #000 62%, transparent 100%);
+  }
+  .migracao__foto img { object-position: 50% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .migracao__foto img { animation: none; height: 100%; }
+  .campo.is-treme { animation: none; }
+}

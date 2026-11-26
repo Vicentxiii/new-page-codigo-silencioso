@@ -1,0 +1,75 @@
+/* Norte — tokens. A página inteira usa só estas variáveis: trocar a paleta é mudar este arquivo (e a cor de fundo do
+   <head> do index.html). O acento é a única cor: a luz dos pontos do globo, o botão claro, o ponto do ".com" e os pontos
+   acesos. ?tema=azul e ?tema=verde mostram outros acentos. Regra: o acento fica claro o bastante para o texto escuro do
+   botão (--sobre-acento) e para brilhar sobre o preto. */
+:root {
+  /* preto quente (o degradê do hero continua pela página) */
+  --preto-topo: #161412;
+  --preto: #0e0d0c;
+  --preto-fim: #0c0b0a;
+  --superficie: #1a1817;
+  --fantasma: #24211f; /* palavra gigante em baixo contraste */
+
+  /* texto */
+  --tinta: #f2ede6;
+  --tinta-2: #a39d96;
+  --tinta-3: #6f6a64;
+  --fio: color-mix(in srgb, var(--tinta) 14%, transparent);
+  --fio-forte: color-mix(in srgb, var(--tinta) 32%, transparent);
+
+  /* o único acento: a luz dos pontos (o globo lê esta cor) */
+  --acento: #f2a65a;
+  --acento-claro: #ffe9cf;  /* o miolo dos pontos acesos */
+  --acento-escuro: #9a5a1c; /* o "−20%" sobre o alternador claro */
+  --acento-brilho: color-mix(in srgb, var(--acento) 45%, transparent);
+  --sobre-acento: #14120f;  /* texto sobre o acento e sobre o botão claro */
+  --apagado: #2c2926;       /* o "seunegocio" da busca quando o campo ganha foco */
+
+  /* tipo: uma família, eixo de largura */
+  --fonte: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --larga: 125%;
+  --titulo-largura: 118%;
+  --lead-largura: 108%;
+  --ui-largura: 104%;
+
+  --t-titulo: clamp(34px, 3.9vw, 64px);
+  --t-lead: clamp(20px, 1.95vw, 30px);
+  --t-corpo: clamp(15px, 1.12vw, 17px);
+  --t-ui: clamp(13px, 0.98vw, 15px);
+  --t-pequeno: 13px;
+
+  /* grade */
+  --margem: clamp(20px, 3.9vw, 72px);
+  --gap: clamp(14px, 1.65vw, 24px);
+  --coluna: calc((100vw - 2 * var(--margem) - 11 * var(--gap)) / 12);
+
+  /* curvas e tempos da marca */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-snap: cubic-bezier(0.3, 0.9, 0.2, 1);
+  --t-entra: 0.9s;
+  --t-micro: 0.45s;
+
+  --nav-h: 96px;
+  --raio: 999px;
+}
+
+:root[data-tema='azul'] {
+  --acento: #6cb8ff;
+  --acento-claro: #e6f3ff;
+  --acento-escuro: #1f5f9e;
+}
+
+:root[data-tema='verde'] {
+  --acento: #8ddc8a;
+  --acento-claro: #ecfbe9;
+  --acento-escuro: #2f7a3a;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --nav-h: 64px;
+    --t-titulo: clamp(30px, 8.6vw, 40px);
+    --t-lead: clamp(22px, 6.6vw, 28px);
+  }
+}

@@ -1,0 +1,59 @@
+/* 6. números: dois números enormes em diagonal; entram desfocados na horizontal e assentam (img 8) */
+.numeros {
+  position: relative;
+  padding: 16vh var(--margem) 12vh;
+  display: grid;
+  row-gap: clamp(48px, 11vh, 140px);
+}
+.numero {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: end;
+}
+.numero__valor {
+  font-stretch: var(--larga);
+  font-weight: 400;
+  font-size: clamp(76px, 14.6vw, 250px);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta);
+}
+.numero__legenda {
+  font-size: var(--t-corpo);
+  line-height: 1.5;
+  color: var(--tinta-2);
+  padding-bottom: 0.6em;
+}
+.numero--a .numero__valor { grid-column: 1 / span 8; }
+.numero--a .numero__legenda { grid-column: 9 / span 4; }
+.numero--b .numero__valor { grid-column: 5 / span 8; grid-row: 1; justify-self: end; }
+.numero--b .numero__legenda { grid-column: 1 / span 4; grid-row: 1; }
+
+/* entrada: o valor chega rápido (desfoque horizontal por filtro SVG, em numeros.js) */
+[data-numero] .numero__valor {
+  opacity: 0;
+  transform: translate3d(5%, 0, 0);
+}
+[data-numero] .numero__legenda {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 0.8s var(--ease-out) 0.55s, transform 0.9s var(--ease-out) 0.55s;
+}
+[data-numero].is-visivel .numero__legenda { opacity: 1; transform: none; }
+[data-numero].is-assentado .numero__valor { opacity: 1; transform: none; filter: none; }
+
+@media (max-width: 760px) {
+  .numeros { padding: 12vh var(--margem) 8vh; row-gap: 64px; }
+  .numero { display: block; }
+  .numero__valor { font-size: clamp(64px, 21vw, 96px); }
+  .numero__legenda { margin-top: 14px; padding-bottom: 0; max-width: 32ch; }
+  .numero--b { text-align: right; }
+  .numero--b .numero__legenda { margin-left: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-numero] .numero__valor, [data-numero] .numero__legenda { opacity: 1; transform: none; transition: none; }
+}
