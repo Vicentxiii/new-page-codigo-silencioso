@@ -61,31 +61,23 @@ export function medirHero() {
   const W = tela.w;
   const H = hero.getBoundingClientRect().height;
   const navH = tela.celular ? 64 : 96;
-  let topoLetras;
-  let d;
-  let globoTopo;
-  if (tela.celular) {
-    const preco = hero.querySelector('.hero__preco');
-    const lead = hero.querySelector('.hero__lead');
-    const leadFim = lead.offsetTop + lead.offsetHeight;
-    hero.style.setProperty('--preco-topo', `${Math.round(leadFim + 18)}px`);
-    const precoFim = leadFim + 18 + preco.offsetHeight;
-    topoLetras = Math.max(precoFim + 40, H * 0.355);
-    d = W * 1.5;
-    globoTopo = topoLetras + m.alto * 0.7;
-  } else {
-    topoLetras = Math.max(navH + 16, H * 0.137);
-    d = Math.min(W * 0.515, H * 0.88);
-    globoTopo = topoLetras + m.alto * 0.71;
-  }
-  const palavraTopo = topoLetras - (m.base - m.alto);
-  const base = topoLetras + m.alto;
-  hero.style.setProperty('--palavra-tam', `${m.f.toFixed(2)}px`);
+
+  // a palavra gigante é só fundo: fica logo abaixo da nav e o texto legível começa depois dela
+  const palavraTopo = navH + (tela.celular ? 6 : 10);
+  const base = palavraTopo + m.alto;
+  const conteudoTopo = base + (tela.celular ? 20 : 28);
+
+  // o globo acompanha a rolagem; no celular fica mais abaixo, atrás da metade inferior do texto
+  const d = tela.celular ? W * 1.35 : Math.min(W * 0.46, H * 0.78);
+  const globoTopo = tela.celular
+    ? Math.max(base, conteudoTopo + 230)
+    : palavraTopo + m.alto * 0.55;
+
   hero.style.setProperty('--palavra-topo', `${palavraTopo.toFixed(1)}px`);
-  hero.style.setProperty('--base', `${base.toFixed(1)}px`);
+  hero.style.setProperty('--conteudo-topo', `${conteudoTopo.toFixed(1)}px`);
   hero.style.setProperty('--globo-topo', `${globoTopo.toFixed(1)}px`);
   hero.style.setProperty('--globo-d', `${d.toFixed(1)}px`);
-  L.hero = { altura: H, topoLetras, base, globoTopo, d };
+  L.hero = { altura: H, topoLetras: palavraTopo, base, globoTopo, d };
 }
 
 export function medirSecoes() {

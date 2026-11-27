@@ -1,5 +1,5 @@
 /* Norte — tokens. A página inteira usa só estas variáveis: trocar a paleta é mudar este arquivo (e a cor de fundo do
-   <head> do index.html). Paleta da página de vendas: grafite, vinho, ouro e marfim. O acento é a única cor: a luz dos
+   <head> do index.html). Paleta da página de vendas: grafite, ouro e marfim. O acento é a única cor: a luz dos
    pontos do globo, o botão, o ponto do rodapé e os pontos acesos. ?tema=azul e ?tema=verde mostram outros acentos.
    Regra: o acento fica claro o bastante para o texto escuro do botão (--sobre-acento) e para brilhar sobre o preto. */
 :root {
@@ -9,7 +9,6 @@
   --preto-fim: #0B0C0E;
   --superficie: #191316;
   --fantasma: #24211f; /* palavra gigante em baixo contraste */
-  --vinho: #4A0F1F;    /* fundo da seção de identificação */
 
   /* texto */
   --tinta: #F2EBDD;    /* marfim */

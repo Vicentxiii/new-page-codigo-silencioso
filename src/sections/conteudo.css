@@ -1,40 +1,11 @@
-/* Conteúdo da página de vendas: seções de copy sobre a base gráfica do site (grafite, vinho, ouro, marfim). */
+/* Conteúdo da página de vendas: seções de copy sobre a base gráfica do site (grafite, ouro, marfim). */
 
-/* ---------- topo: detalhes abaixo do globo ---------- */
-.hero__nota,
-.hero__pagamento {
-  position: absolute;
-  bottom: clamp(48px, 7vh, 84px);
-  opacity: 0;
-  transition: opacity 0.9s var(--ease-out) 1s;
-}
-.is-carregado .hero__nota,
-.is-carregado .hero__pagamento { opacity: 1; }
-.hero__nota {
-  left: var(--margem);
-  max-width: 48ch;
-  font-size: var(--t-ui);
-  line-height: 1.5;
-  color: var(--tinta-2);
-}
-.hero__pagamento {
-  right: var(--margem);
-  font-size: var(--t-pequeno);
-  color: var(--tinta-3);
-}
-@media (max-width: 760px) {
-  .hero__nota { left: var(--margem); right: var(--margem); bottom: 44px; max-width: none; font-size: 12px; }
-  .hero__pagamento { left: var(--margem); right: var(--margem); bottom: 20px; font-size: 11px; }
-}
 .regioes .corpo--nota { margin-top: 20px; font-size: 14px; color: var(--tinta-3); }
 
 /* ---------- moldura das seções ---------- */
 .secao {
   position: relative;
   padding: clamp(84px, 12vh, 156px) var(--margem);
-}
-.secao--vinho {
-  background: linear-gradient(160deg, #571426 0, var(--vinho) 42%, #340a17 100%);
 }
 .secao__interno {
   max-width: 1040px;
