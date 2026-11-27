@@ -15,6 +15,7 @@ import { iniciarVideo } from './motion/video.js';
 import { iniciarPlanos } from './motion/planos.js';
 import { iniciarMigracao } from './motion/migracao.js';
 import { iniciarNumeros } from './motion/numeros.js';
+import { iniciarTrilha } from './motion/trilha.js';
 import { iniciarRelogio } from './motion/relogio.js';
 import { ajustarPalavras } from './motion/layout.js';
 
@@ -105,6 +106,7 @@ iniciarNav();
 iniciarBarra();
 iniciarToque();
 iniciarNumeros();
+iniciarTrilha();
 revelar();
 
 // o nome digitado muda o tamanho do domínio no fecho

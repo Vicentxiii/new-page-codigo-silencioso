@@ -1,53 +1,101 @@
-<!-- 6. O QUE TEM DENTRO: um cartão por parte do livro -->
+<!-- 6. O QUE TEM DENTRO: um caminho de capítulos que se desenha ao rolar -->
 <section class="secao capitulos" id="capitulos" data-secao="capitulos">
-  <div class="secao__interno" data-revela>
+  <div class="secao__interno">
     <h2 class="titulo"><span class="linha"><span>O que tem dentro</span></span></h2>
     <p class="secao__intro">Uma leitura em oito capítulos. Cada capítulo funciona assim: abertura, contexto psicológico, explicação central, aplicação imediata (o que fazer já na semana seguinte), reenquadramento e integração. Você sempre termina com algo para praticar.</p>
-    <dl class="capitulos__lista">
-      <div class="capitulo">
-        <dt>Introdução: a solidão dos que percebem demais</dt>
-        <dd>Por que algumas pessoas enxergam o jogo enquanto outras apenas reagem</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 1: a arquitetura da percepção</dt>
-        <dd>Como o cérebro capta sinais antes do ruído e por que entender virou armadura</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 2: quando lucidez é confundida com paranoia</dt>
-        <dd>Por que os mais atentos são invalidados e como diferenciar sensibilidade de leitura de cenário</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 3: os que operam no escuro</dt>
-        <dd>Como funcionam pessoas que dependem de confusão, e por que perdem força diante de quem observa</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 4: leitura silenciosa de padrões</dt>
-        <dd>O corpo, o tom e o silêncio como fontes de informação</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 5: o tabuleiro invisível</dt>
-        <dd>Escuta estratégica, testes sem confronto e o silêncio como vantagem</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 6: blindagem emocional</dt>
-        <dd>Limites invisíveis e como não absorver o caos alheio</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 7: transformando lucidez em vantagem</dt>
-        <dd>Parar de se justificar e usar a percepção como filtro, não como fardo</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Cap. 8: o círculo restrito</dt>
-        <dd>Reconhecer maturidade emocional real e escolher quem entra</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Conclusão: o despertar do observador</dt>
-        <dd>Como viver a partir daqui</dd>
-      </div>
-      <div class="capitulo">
-        <dt>Fontes</dt>
-        <dd>Referências científicas que sustentam o conteúdo (Damasio, LeDoux, Kahneman, Judith Herman, entre outros)</dd>
-      </div>
-    </dl>
+
+    <div class="trilha">
+      <div class="trilha__linha" aria-hidden="true"><span class="trilha__preenchido"></span></div>
+      <ol class="trilha__passos">
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">00</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Introdução: a solidão dos que percebem demais</h3>
+            <p class="trilha__desc">Por que algumas pessoas enxergam o jogo enquanto outras apenas reagem</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">01</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">A arquitetura da percepção</h3>
+            <p class="trilha__desc">Como o cérebro capta sinais antes do ruído e por que entender virou armadura</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">02</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Quando lucidez é confundida com paranoia</h3>
+            <p class="trilha__desc">Por que os mais atentos são invalidados e como diferenciar sensibilidade de leitura de cenário</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">03</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Os que operam no escuro</h3>
+            <p class="trilha__desc">Como funcionam pessoas que dependem de confusão, e por que perdem força diante de quem observa</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">04</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Leitura silenciosa de padrões</h3>
+            <p class="trilha__desc">O corpo, o tom e o silêncio como fontes de informação</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">05</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">O tabuleiro invisível</h3>
+            <p class="trilha__desc">Escuta estratégica, testes sem confronto e o silêncio como vantagem</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">06</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Blindagem emocional</h3>
+            <p class="trilha__desc">Limites invisíveis e como não absorver o caos alheio</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">07</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Transformando lucidez em vantagem</h3>
+            <p class="trilha__desc">Parar de se justificar e usar a percepção como filtro, não como fardo</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">08</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">O círculo restrito</h3>
+            <p class="trilha__desc">Reconhecer maturidade emocional real e escolher quem entra</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">09</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Conclusão: o despertar do observador</h3>
+            <p class="trilha__desc">Como viver a partir daqui</p>
+          </div>
+        </li>
+        <li class="trilha__passo">
+          <span class="trilha__ponto" aria-hidden="true"></span>
+          <span class="trilha__numero" aria-hidden="true">10</span>
+          <div class="trilha__conteudo">
+            <h3 class="trilha__titulo">Fontes</h3>
+            <p class="trilha__desc">Referências científicas que sustentam o conteúdo (Damasio, LeDoux, Kahneman, Judith Herman, entre outros)</p>
+          </div>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>

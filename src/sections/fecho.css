@@ -61,6 +61,18 @@
   overflow: hidden;
   padding: 0 var(--margem);
 }
+/* fade preto elegante: a página se dissolve no preto no fim */
+.rodape::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(220px, 34vh, 380px);
+  background: linear-gradient(180deg, transparent 0, color-mix(in srgb, var(--preto) 62%, transparent) 48%, var(--preto) 100%);
+  pointer-events: none;
+}
 .rodape__topo {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
