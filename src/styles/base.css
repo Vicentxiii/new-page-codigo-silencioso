@@ -114,11 +114,12 @@ main > section > .palavra,
 
 /* ---------- tipo ---------- */
 .titulo {
+  font-family: var(--fonte-titulo);
   font-stretch: var(--titulo-largura);
-  font-weight: 450;
+  font-weight: 500;
   font-size: var(--t-titulo);
-  line-height: 1.02;
-  letter-spacing: -0.022em;
+  line-height: 1.04;
+  letter-spacing: -0.012em;
   white-space: nowrap;
 }
 .corpo {
@@ -223,10 +224,10 @@ main > section > .palavra,
   height: 46px;
   padding: 0 24px;
   border-radius: var(--raio);
-  background: var(--tinta);
+  background: var(--acento);
   color: var(--sobre-acento);
   font-stretch: var(--ui-largura);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   letter-spacing: -0.005em;
   white-space: nowrap;
@@ -278,7 +279,7 @@ main > section > .palavra,
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: var(--tinta);
+  background: var(--acento);
   color: var(--sobre-acento);
   overflow: hidden;
   transition: transform 0.25s var(--ease-snap), background-color var(--t-micro) var(--ease-snap), box-shadow var(--t-micro) var(--ease-snap);
