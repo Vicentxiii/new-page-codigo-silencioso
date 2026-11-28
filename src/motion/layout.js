@@ -73,12 +73,14 @@ export function medirHero() {
   // o pontinho inicial nasce acima da capa para não ficar escondido atrás dela
   const capaH = visual.querySelector('.hero__capa')?.getBoundingClientRect().height || 0;
   const pontoOffset = capaH * 0.62;
+  const texto = hero.querySelector('.hero__conteudo');
+  const textoZona = texto ? { topo: docTop(texto), altura: texto.offsetHeight } : null;
 
   hero.style.setProperty('--globo-topo', `${globoTopo.toFixed(1)}px`);
   hero.style.setProperty('--globo-d', `${d.toFixed(1)}px`);
   hero.style.setProperty('--globo-cx', `${cx.toFixed(1)}px`);
   hero.style.setProperty('--globo-cy', `${cy.toFixed(1)}px`);
-  L.hero = { altura: H, conteudoTopo, globoTopo, d, cx, cy, pontoOffset };
+  L.hero = { altura: H, conteudoTopo, globoTopo, d, cx, cy, pontoOffset, texto: textoZona };
 }
 
 export function medirSecoes() {

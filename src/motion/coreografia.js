@@ -17,7 +17,7 @@ function quadros() {
   const cx = r => celular ? W / 2 : Math.min(W - r - margem, W * 0.78);
   // a entrada: um pontinho dourado que abre até o tamanho do globo conforme a página rola
   const rPonto = Math.max(5, Math.min(9, r0 * 0.035));
-  const cyPonto = cy0 - (hero.pontoOffset || 0);
+  const cyPonto = Math.max(48, cy0 - (hero.pontoOffset || 0));
   const zoomFim = H * 0.6;
   // sem a seção de regiões, o globo só sobe e sai pelo alto quando o hero acaba
   if (!reg) {
@@ -117,17 +117,19 @@ export function criarCoreografia(globo, canvas = null) {
     aplicado.lon = atual.lon + giro.lon;
     globo.aplicar(aplicado);
 
-    // celular: o globo escurece enquanto a lista de "Isso soa familiar?" está sob ele,
-    // e volta ao normal suavemente quando a seção passa
+    // celular: o globo escurece sempre que um bloco de texto branco passa por cima dele
+    // (hero e "Isso soa familiar?"), e volta ao normal suavemente quando o texto sai
     let alvoOp = 1;
-    if (tela.celular && L.identidade) {
-      const topo = L.identidade.topo - tela.y;
-      const fim = topo + L.identidade.altura;
-      const centro = aplicado.cy;
-      const rampa = tela.h * 0.3;
-      const entra = limitar((centro - topo) / rampa);
-      const sai = limitar((fim - centro) / rampa);
-      alvoOp = 1 - Math.min(entra, sai) * 0.9; // chega a 0,10: só um relevo escuro
+    if (tela.celular) {
+      const zonas = [L.hero?.texto, L.identidade].filter(Boolean);
+      const gTopo = aplicado.cy - aplicado.r;
+      const gFim = aplicado.cy + aplicado.r;
+      for (const z of zonas) {
+        const topo = z.topo - tela.y;
+        const fim = topo + z.altura;
+        const sobreposicao = Math.max(0, Math.min(fim, gFim) - Math.max(topo, gTopo));
+        alvoOp = Math.min(alvoOp, 1 - limitar(sobreposicao / (aplicado.r * 1.2)) * 0.9);
+      }
     }
     opacidade = reduzido ? alvoOp : amortecer(opacidade, alvoOp, 6, dt);
     if (canvas?.classList.contains('is-pronto')) {
