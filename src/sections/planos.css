@@ -1,7 +1,7 @@
 /* 4. planos: quatro linhas em tipografia larga, nome à esquerda e preço à direita, nada de cards */
 .planos {
   position: relative;
-  padding: 14vh var(--margem) 12vh;
+  padding: 14vh 0 12vh;
 }
 .planos__topo {
   display: flex;
@@ -193,7 +193,7 @@
 .planos__frase strong { color: var(--tinta); font-weight: 500; }
 
 @media (max-width: 760px) {
-  .planos { padding: 12vh var(--margem) 10vh; }
+  .planos { padding: 12vh 0 10vh; }
   .planos__topo { flex-direction: column; align-items: flex-start; gap: 22px; }
   .plano {
     grid-template-columns: 18px minmax(0, 1fr) auto;

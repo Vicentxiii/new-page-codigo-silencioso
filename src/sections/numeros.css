@@ -1,7 +1,7 @@
 /* 6. números: dois números enormes em diagonal; entram desfocados na horizontal e assentam (img 8) */
 .numeros {
   position: relative;
-  padding: 16vh var(--margem) 12vh;
+  padding: 16vh 0 12vh;
   display: grid;
   row-gap: clamp(48px, 11vh, 140px);
 }
@@ -46,7 +46,7 @@
 [data-numero].is-assentado .numero__valor { opacity: 1; transform: none; filter: none; }
 
 @media (max-width: 760px) {
-  .numeros { padding: 12vh var(--margem) 8vh; row-gap: 64px; }
+  .numeros { padding: 12vh 0 8vh; row-gap: 64px; }
   .numero { display: block; }
   .numero__valor { font-size: clamp(64px, 21vw, 96px); }
   .numero__legenda { margin-top: 14px; padding-bottom: 0; max-width: 32ch; }

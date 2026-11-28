@@ -1,7 +1,7 @@
 /* 3. domínio: uma linha de campo gigante (img 2), o cursor é o ponto que veio do globo */
 .dominio {
   position: relative;
-  padding: 30vh var(--margem) 16vh;
+  padding: 30vh 0 16vh;
 }
 .dominio__topo {
   display: grid;
@@ -258,7 +258,7 @@
 .tld__acao.is-toque .rola__a,
 .tld__acao.is-toque .rola__b { transform: translateY(-100%); }
 .tld__acao:active { transform: scale(0.96); }
-.tld.is-no-carrinho .tld__acao { background: var(--acento); border-color: var(--acento); color: var(--preto); }
+.tld.is-no-carrinho .tld__acao { background: var(--cta); border-color: var(--cta); color: var(--sobre-cta); }
 .tld__sugestoes {
   grid-area: sug;
   display: flex;
@@ -323,7 +323,7 @@
 .dominio__temas .tld__preco { line-height: 1.5; }
 
 @media (max-width: 760px) {
-  .dominio { padding: 22vh var(--margem) 12vh; }
+  .dominio { padding: 22vh 0 12vh; }
   .dominio__topo { display: block; }
   .dominio__topo .corpo { margin-top: 18px; }
   .dominio__linha { gap: 12px; }

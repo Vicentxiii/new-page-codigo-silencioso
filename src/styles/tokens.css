@@ -1,29 +1,35 @@
 /* Norte — tokens. A página inteira usa só estas variáveis: trocar a paleta é mudar este arquivo (e a cor de fundo do
-   <head> do index.html). Paleta da página de vendas: grafite, ouro e marfim. O acento é a única cor: a luz dos
-   pontos do globo, o botão, o ponto do rodapé e os pontos acesos. ?tema=azul e ?tema=verde mostram outros acentos.
-   Regra: o acento fica claro o bastante para o texto escuro do botão (--sobre-acento) e para brilhar sobre o preto. */
+   <head> do index.html). Paleta da página de vendas: preto piano, marfim, ouro nos detalhes e verde nos botões de
+   compra. O acento dourado ilumina os pontos do globo e os marcadores; o CTA verde fica só nos botões (--cta).
+   ?tema=azul e ?tema=verde trocam o acento decorativo. O verde leva texto escuro (--sobre-cta) e brilha no preto. */
 :root {
-  /* grafite (o degradê do hero continua pela página) */
-  --preto-topo: #0F1114;
-  --preto: #0F1114;
-  --preto-fim: #0B0C0E;
-  --superficie: #191316;
-  --fantasma: #24211f; /* palavra gigante em baixo contraste */
+  /* preto piano: fundo quase absoluto, sem o cinza do grafite anterior */
+  --preto-topo: #050506;
+  --preto: #000000;
+  --preto-fim: #000000;
+  --superficie: #0A0A0B;
+  --fantasma: #131315; /* palavra gigante em baixo contraste */
 
   /* texto */
-  --tinta: #F2EBDD;    /* marfim */
-  --tinta-2: #C6BFB2;
-  --tinta-3: #8A8378;
+  --tinta: #F5F2EA;    /* marfim */
+  --tinta-2: #D0CABE;
+  --tinta-3: #918B81;
   --fio: color-mix(in srgb, var(--tinta) 14%, transparent);
   --fio-forte: color-mix(in srgb, var(--tinta) 32%, transparent);
 
-  /* o único acento: ouro; a luz dos pontos (o globo lê esta cor) */
+  /* acento decorativo: ouro; a luz dos pontos (o globo lê esta cor) */
   --acento: #B8975A;
   --acento-claro: #F0DDB0; /* o miolo dos pontos acesos */
   --acento-escuro: #7A6138; /* o "−20%" sobre o alternador claro */
   --acento-brilho: color-mix(in srgb, var(--acento) 45%, transparent);
-  --sobre-acento: #0F1114; /* texto sobre o acento e sobre o botão */
-  --apagado: #2c2926;      /* o "seunegocio" da busca quando o campo ganha foco */
+  --sobre-acento: #050506;
+
+  /* CTA: verde de conversão, separado do ouro decorativo */
+  --cta: #2ECC71;
+  --cta-claro: #8AF0B4;
+  --cta-escuro: #147A42;
+  --sobre-cta: #04150B;
+  --apagado: #141414;      /* o "seunegocio" da busca quando o campo ganha foco */
 
   /* tipo: Cormorant Garamond nos títulos, Montserrat nos textos */
   --fonte: 'Montserrat', 'Archivo', system-ui, sans-serif;
@@ -39,9 +45,11 @@
   --t-ui: clamp(13px, 0.98vw, 15px);
   --t-pequeno: 13px;
 
-  /* grade */
-  --margem: clamp(20px, 3.9vw, 72px);
-  --gap: clamp(14px, 1.65vw, 24px);
+  /* grade: um único container centralizado e um único respiro lateral para toda a página */
+  --container: 1280px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+  --margem: var(--container-pad);
+  --gap: clamp(1.25rem, 2.4vw, 2.25rem);
   --coluna: calc((100vw - 2 * var(--margem) - 11 * var(--gap)) / 12);
 
   /* curvas e tempos da marca */

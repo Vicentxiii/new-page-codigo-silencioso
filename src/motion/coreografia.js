@@ -12,31 +12,41 @@ function quadros() {
   const reg = L.regioes;
   const r0 = hero.d / 2;
   const cy0 = hero.globoTopo + r0;
+  // desktop: o globo fica à direita, mas inteiro dentro da área útil — sem corte na borda
+  const margem = Math.min(48, Math.max(20, W * 0.04));
+  const cx = r => celular ? W / 2 : Math.min(W - r - margem, W * 0.78);
+  // a entrada: um pontinho dourado que abre até o tamanho do globo conforme a página rola
+  const rPonto = Math.max(5, Math.min(9, r0 * 0.035));
+  const cyPonto = cy0 - (hero.pontoOffset || 0);
+  const zoomFim = H * 0.6;
   // sem a seção de regiões, o globo só sobe e sai pelo alto quando o hero acaba
   if (!reg) {
     return [
-      { s: 0, cx: W / 2, cy: cy0, r: r0, lat: -9, lon: -58 },
-      { s: hero.altura * 0.9, cx: W / 2, cy: -r0 - 80, r: r0, lat: -4, lon: -20 },
+      { s: 0, cx: hero.cx, cy: cyPonto, r: rPonto, lat: -9, lon: -58 },
+      { s: zoomFim, cx: hero.cx, cy: cy0, r: r0, lat: -9, lon: -58 },
+      { s: hero.altura * 0.9, cx: cx(r0), cy: -r0 - 80, r: r0, lat: -4, lon: -20 },
     ];
   }
   const fimReg = reg.topo + reg.altura;
   const r1 = L.r1;
   if (celular) {
     return [
-      { s: 0, cx: W / 2, cy: cy0, r: r0, lat: -9, lon: -58 },
-      { s: reg.topo - H * 0.15, cx: W / 2, cy: H * 0.33, r: r1, lat: -14, lon: -60 },
-      { s: reg.a.topo - H * 0.2, cx: W / 2, cy: H * 0.33, r: r1, lat: -10, lon: -40 },
-      { s: reg.b.topo - H * 0.55, cx: W / 2, cy: H * 0.33, r: r1, lat: 20, lon: 10 },
-      { s: fimReg - H * 0.25, cx: W / 2, cy: -r1 - 80, r: r1, lat: 8, lon: 70 },
+      { s: 0, cx: hero.cx, cy: cyPonto, r: rPonto, lat: -9, lon: -58 },
+      { s: zoomFim, cx: hero.cx, cy: cy0, r: r0, lat: -9, lon: -58 },
+      { s: reg.topo - H * 0.15, cx: cx(r1), cy: H * 0.33, r: r1, lat: -14, lon: -60 },
+      { s: reg.a.topo - H * 0.2, cx: cx(r1), cy: H * 0.33, r: r1, lat: -10, lon: -40 },
+      { s: reg.b.topo - H * 0.55, cx: cx(r1), cy: H * 0.33, r: r1, lat: 20, lon: 10 },
+      { s: fimReg - H * 0.25, cx: cx(r1), cy: -r1 - 80, r: r1, lat: 8, lon: 70 },
     ];
   }
   return [
-    { s: 0, cx: W / 2, cy: cy0, r: r0, lat: -9, lon: -58 },
-    { s: reg.topo - H * 0.04, cx: W / 2, cy: H * 0.5, r: r1, lat: -14, lon: -61 },
-    { s: reg.a.topo - H * 0.1, cx: W / 2, cy: H * 0.5, r: r1, lat: -10, lon: -44 },
-    { s: reg.b.topo - H * 0.25, cx: W / 2, cy: H * 0.5, r: r1, lat: 22, lon: 9 },
-    { s: fimReg - H * 0.95, cx: W / 2, cy: H * 0.5, r: r1, lat: 12, lon: 64 },
-    { s: fimReg - H * 0.05, cx: W / 2, cy: -r1 - 100, r: r1 * 0.94, lat: 4, lon: 96 },
+    { s: 0, cx: hero.cx, cy: cyPonto, r: rPonto, lat: -9, lon: -58 },
+    { s: zoomFim, cx: hero.cx, cy: cy0, r: r0, lat: -9, lon: -58 },
+    { s: reg.topo - H * 0.04, cx: cx(r1), cy: H * 0.5, r: r1, lat: -14, lon: -61 },
+    { s: reg.a.topo - H * 0.1, cx: cx(r1), cy: H * 0.5, r: r1, lat: -10, lon: -44 },
+    { s: reg.b.topo - H * 0.25, cx: cx(r1), cy: H * 0.5, r: r1, lat: 22, lon: 9 },
+    { s: fimReg - H * 0.95, cx: cx(r1), cy: H * 0.5, r: r1, lat: 12, lon: 64 },
+    { s: fimReg - H * 0.05, cx: cx(r1 * 0.94), cy: -r1 - 100, r: r1 * 0.94, lat: 4, lon: 96 },
   ];
 }
 
@@ -55,7 +65,7 @@ function interpolar(qs, s) {
   return { ...qs[qs.length - 1] };
 }
 
-export function criarCoreografia(globo) {
+export function criarCoreografia(globo, canvas = null) {
   let qs = quadros();
   const atual = interpolar(qs, tela.y);
   const ponto = {};
@@ -69,6 +79,7 @@ export function criarCoreografia(globo) {
   const alvoBrilho = new Float32Array(N);
   let falha = -1;
   let inicio = -1;
+  let opacidade = 1; // brilho do canvas: escurece atrás da lista no celular
   const presos = new Set(); // pontos que saíram do globo (o voo até a busca)
 
   function remedir() { qs = quadros(); }
@@ -105,6 +116,24 @@ export function criarCoreografia(globo) {
     aplicado.lat = atual.lat + giro.lat;
     aplicado.lon = atual.lon + giro.lon;
     globo.aplicar(aplicado);
+
+    // celular: o globo escurece enquanto a lista de "Isso soa familiar?" está sob ele,
+    // e volta ao normal suavemente quando a seção passa
+    let alvoOp = 1;
+    if (tela.celular && L.identidade) {
+      const topo = L.identidade.topo - tela.y;
+      const fim = topo + L.identidade.altura;
+      const centro = aplicado.cy;
+      const rampa = tela.h * 0.3;
+      const entra = limitar((centro - topo) / rampa);
+      const sai = limitar((fim - centro) / rampa);
+      alvoOp = 1 - Math.min(entra, sai) * 0.9; // chega a 0,10: só um relevo escuro
+    }
+    opacidade = reduzido ? alvoOp : amortecer(opacidade, alvoOp, 6, dt);
+    if (canvas?.classList.contains('is-pronto')) {
+      if (!canvas.style.transition) canvas.style.transition = 'none';
+      canvas.style.opacity = opacidade.toFixed(3);
+    }
 
     // luz dos pontos
     for (let i = 0; i < N; i++) {

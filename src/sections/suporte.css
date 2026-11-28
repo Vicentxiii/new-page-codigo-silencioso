@@ -1,11 +1,10 @@
 /* 7. autores: pausa editorial antes do fecho */
 .suporte {
   position: relative;
-  padding: 18vh var(--margem) 16vh;
+  padding: 18vh 0 16vh;
 }
 .suporte__conteudo {
-  width: min(100%, 920px);
-  margin: 0 auto;
+  max-width: min(var(--container), 920px);
 }
 .suporte__texto .corpo {
   max-width: 48ch;
@@ -14,6 +13,6 @@
 .suporte__texto .botao { margin-top: 30px; }
 
 @media (max-width: 760px) {
-  .suporte { padding: 12vh var(--margem) 10vh; }
+  .suporte { padding: 12vh 0 10vh; }
   .suporte__texto .corpo { margin-top: 18px; }
 }

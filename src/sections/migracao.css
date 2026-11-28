@@ -32,8 +32,7 @@
 }
 
 .migracao__conteudo {
-  width: 100%;
-  padding: 14vh var(--margem);
+  padding-block: 14vh;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
@@ -133,7 +132,7 @@
 
 @media (max-width: 760px) {
   .migracao { display: block; min-height: 0; }
-  .migracao__conteudo { display: block; padding: 0 var(--margem) 8vh; margin-top: -12vh; }
+  .migracao__conteudo { display: block; padding: 0 0 8vh; margin-top: -12vh; }
   .linha-form { grid-template-columns: 1fr; row-gap: 26px; }
   .linha-form .botao { justify-self: start; margin-top: 4px; }
   .migracao__foto {

@@ -1,7 +1,7 @@
 /* 8. fecho e rodapé: o nome do visitante grande, e "Norte" gigante cortado pela borda de baixo */
 .fecho {
   position: relative;
-  padding: 22vh var(--margem) 16vh;
+  padding: 22vh 0 16vh;
 }
 .fecho__nome { position: relative; }
 .fecho__ponto {
@@ -59,7 +59,7 @@
 .rodape {
   position: relative;
   overflow: hidden;
-  padding: 0 var(--margem);
+  padding: 0;
 }
 /* fade preto elegante: a página se dissolve no preto no fim */
 .rodape::after {
@@ -142,7 +142,7 @@
 .rodape__base .link:focus-visible { color: var(--tinta); }
 .rodape__palavra {
   display: block;
-  margin: 3vh calc(var(--margem) * -1) 0;
+  margin: 3vh 0 0;
   text-align: center;
   text-indent: -0.045em; /* centro ótico: o N tem mais respiro à esquerda que o e à direita */
   /* cortada pela borda de baixo: só o alto das letras aparece */
@@ -150,7 +150,7 @@
 }
 
 @media (max-width: 760px) {
-  .fecho { padding: 16vh var(--margem) 12vh; }
+  .fecho { padding: 16vh 0 12vh; }
   .fecho__frase { font-size: 19px; }
   .fecho__ponto { position: relative; display: block; left: 0; top: 0; margin: 0 0 16px; }
   .fecho__linha { flex-direction: column; align-items: flex-start; }

@@ -8,6 +8,7 @@ export function iniciarNav() {
   const menu = document.getElementById('menu');
   let ultimoY = window.scrollY;
   let acumulado = 0;
+  let timerFechar = 0;
 
   function aoRolar() {
     const y = window.scrollY;
@@ -33,21 +34,27 @@ export function iniciarNav() {
   const links = menu.querySelectorAll('.menu__link');
   links.forEach((l, i) => l.style.setProperty('--i', i));
   function abrir() {
+    clearTimeout(timerFechar);
     menu.hidden = false;
-    requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('is-aberto')));
     botao.setAttribute('aria-expanded', 'true');
     trocarRotulo('Fechar');
     nav.classList.remove('is-escondida');
     document.documentElement.classList.add('menu-aberto');
     lenis?.stop();
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (botao.getAttribute('aria-expanded') !== 'true') return; // fechou antes de animar
+      menu.classList.add('is-aberto');
+      menu.querySelector('.menu__link')?.focus({ preventScroll: true });
+    }));
   }
   function fechar(foco = true) {
+    clearTimeout(timerFechar);
     menu.classList.remove('is-aberto');
     botao.setAttribute('aria-expanded', 'false');
     trocarRotulo('Menu');
     document.documentElement.classList.remove('menu-aberto');
     lenis?.start();
-    setTimeout(() => { if (!menu.classList.contains('is-aberto')) menu.hidden = true; }, 460);
+    timerFechar = setTimeout(() => { if (!menu.classList.contains('is-aberto')) menu.hidden = true; }, 420);
     if (foco) botao.focus({ preventScroll: true });
   }
   function trocarRotulo(t) {
@@ -57,5 +64,15 @@ export function iniciarNav() {
   }
   botao.addEventListener('click', () => (menu.classList.contains('is-aberto') ? fechar() : abrir()));
   menu.addEventListener('click', e => { if (e.target.closest('a')) fechar(false); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-aberto')) fechar(); });
+  document.addEventListener('keydown', e => {
+    if (!menu.classList.contains('is-aberto')) return;
+    if (e.key === 'Escape') { fechar(); return; }
+    if (e.key !== 'Tab') return;
+    // mantém o foco dentro do menu enquanto ele está aberto
+    const itens = [botao, ...menu.querySelectorAll('a[href], button')];
+    const primeiro = itens[0];
+    const ultimo = itens[itens.length - 1];
+    if (e.shiftKey && document.activeElement === primeiro) { e.preventDefault(); ultimo.focus(); }
+    else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primeiro.focus(); }
+  });
 }

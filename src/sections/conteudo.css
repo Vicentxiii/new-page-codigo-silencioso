@@ -5,11 +5,13 @@
 /* ---------- moldura das seções ---------- */
 .secao {
   position: relative;
-  padding: clamp(84px, 12vh, 156px) var(--margem);
+  padding-block: clamp(84px, 12vh, 156px);
 }
 .secao__interno {
-  max-width: 1040px;
+  width: 100%;
+  max-width: var(--container);
   margin-inline: auto;
+  padding-inline: var(--container-pad);
 }
 .secao .titulo { white-space: normal; }
 .titulo--fluxo { max-width: 18ch; }

@@ -54,7 +54,7 @@ let globo = null;
   .then(([{ criarGlobo }, { criarCoreografia }, { criarVoo }, { criarArrasto }]) => {
     globo = criarGlobo(canvas, { leve: tela.celular || (navigator.hardwareConcurrency || 8) <= 4 });
     globo.medir(tela.w, tela.h);
-    coreografia = criarCoreografia(globo);
+    coreografia = criarCoreografia(globo, canvas);
     const voo = criarVoo(globo, coreografia, busca);
     const arrasto = criarArrasto(coreografia);
     let visivelAntes = true;

@@ -1,4 +1,4 @@
-/* vídeo do meio: preto e branco (já gravado assim no arquivo), cobrindo a seção inteira.
+/* vídeo do meio: gravado em cinza, cobrindo a seção inteira.
    As margens negativas estendem o vídeo por trás de "Antes de reagir" e "Leia os sinais";
    os textos ficam acima pelo z-index 2 da base. */
 .video {

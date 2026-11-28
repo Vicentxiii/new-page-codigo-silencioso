@@ -2,11 +2,15 @@
 .regioes {
   position: relative;
   height: 210vh;
+  /* mesma borda do container, mesmo quando a viewport passa dos 1280px */
+  --borda: max(var(--container-pad), calc((100vw - var(--container)) / 2 + var(--container-pad)));
 }
 .regioes__bloco {
   position: absolute;
-  /* coluna larga o bastante para a frase inteira caber sem cortar */
-  width: min(42vw, 560px);
+  left: var(--borda);
+  /* coluna de leitura confortável: a frase inteira cabe sem cortar */
+  width: min(calc(100% - 2 * var(--borda)), 540px);
+  max-width: 540px;
 }
 .regioes__bloco .titulo {
   /* quebra em vez de cortar: nenhuma palavra fica de fora */
@@ -15,8 +19,9 @@
   line-height: 1.08;
   text-shadow: 0 2px 18px var(--preto), 0 1px 5px var(--preto);
 }
-.regioes__bloco--a { left: var(--margem); top: 46vh; }
-.regioes__bloco--b { right: var(--margem); top: 128vh; }
+.regioes__bloco--a { top: 46vh; }
+/* o globo ocupa a direita: as duas frases ficam na coluna de leitura, em alturas distintas */
+.regioes__bloco--b { top: 128vh; }
 .regioes__bloco .titulo { margin-bottom: 22px; }
 .regioes__bloco .corpo {
   max-width: 42ch;

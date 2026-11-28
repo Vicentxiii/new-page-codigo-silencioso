@@ -63,6 +63,15 @@ b { font-weight: 550; }
 }
 .pular:focus-visible { transform: none; }
 
+/* ---------- grade ---------- */
+/* Container único: centraliza, limita a 1280px e dá o mesmo respiro lateral em qualquer tela. */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
 /* ---------- camadas ---------- */
 /* o globo é fixo e fica entre as palavras gigantes (z 0) e o resto do conteúdo (z 2) */
 .globo {
@@ -105,6 +114,7 @@ main > section > *,
   line-height: 1;
   letter-spacing: -0.012em;
   white-space: nowrap;
+  max-width: 100%; /* o tamanho vem do clamp em layout.js: nunca passa da largura útil */
   color: var(--fantasma);
   user-select: none;
   pointer-events: none;
@@ -224,8 +234,8 @@ main > section > .palavra,
   height: 46px;
   padding: 0 24px;
   border-radius: var(--raio);
-  background: var(--acento);
-  color: var(--sobre-acento);
+  background: var(--cta);
+  color: var(--sobre-cta);
   font-stretch: var(--ui-largura);
   font-weight: 600;
   font-size: 15px;
@@ -242,7 +252,7 @@ main > section > .palavra,
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(120% 140% at 50% 120%, color-mix(in srgb, var(--acento) 55%, transparent), color-mix(in srgb, var(--acento) 0%, transparent) 62%);
+  background: radial-gradient(120% 140% at 50% 120%, color-mix(in srgb, var(--cta-claro) 55%, transparent), color-mix(in srgb, var(--cta) 0%, transparent) 62%);
   opacity: 0;
   transform: translateY(30%);
   transition: opacity var(--t-micro) var(--ease-snap), transform 0.6s var(--ease-out);
@@ -250,7 +260,7 @@ main > section > .palavra,
 :where(html:not(.is-scrolling)) .botao:hover,
 .botao.is-toque,
 .botao:focus-visible {
-  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--acento) 55%, transparent);
+  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--cta) 55%, transparent);
 }
 :where(html:not(.is-scrolling)) .botao:hover::before,
 .botao.is-toque::before,
@@ -279,8 +289,8 @@ main > section > .palavra,
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: var(--acento);
-  color: var(--sobre-acento);
+  background: var(--cta);
+  color: var(--sobre-cta);
   overflow: hidden;
   transition: transform 0.25s var(--ease-snap), background-color var(--t-micro) var(--ease-snap), box-shadow var(--t-micro) var(--ease-snap);
 }
@@ -304,7 +314,7 @@ main > section > .palavra,
 .botao-seta:focus-visible svg + svg { transform: none; }
 :where(html:not(.is-scrolling)) .botao-seta:hover,
 .botao-seta.is-toque,
-.botao-seta:focus-visible { box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--acento) 55%, transparent); }
+.botao-seta:focus-visible { box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--cta) 55%, transparent); }
 .botao-seta:active { transform: scale(0.94); }
 
 /* ponto de luz (status, plano escolhido) */
@@ -356,6 +366,9 @@ main > section > .palavra,
 @media (hover: none) { .barra { display: none; } }
 
 .filtros { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* com o menu aberto a rolagem nativa também trava (o Lenis já é parado no JS) */
+html.menu-aberto, html.menu-aberto body { overflow: hidden; overscroll-behavior: contain; }
 
 @media (prefers-reduced-motion: reduce) {
   .linha > span { transform: none; transition: none; }

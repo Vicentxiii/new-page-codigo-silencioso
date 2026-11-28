@@ -34,10 +34,8 @@ export function ajustarPalavras() {
     const m = medir(el);
     const borda = Math.max(6, tela.w * 0.007);
     let f = ((tela.w - borda * 2) / m.w) * 100;
-    if (el.classList.contains('hero__palavra') && !tela.celular) {
-      // em tela muito larga a palavra não passa de 36% da altura
-      f = Math.min(f, (tela.h * 0.36) / (m.alto / 100));
-    }
+    // teto fluido: a palavra de fundo nunca estoura a largura útil nem passa de 34% da altura
+    f = Math.min(f, (tela.h * 0.34) / (m.alto / 100));
     el.style.fontSize = `${f.toFixed(2)}px`;
     el._medida = { f, base: (m.base * f) / 100, alto: (m.alto * f) / 100, w: (m.w * f) / 100 };
   });
@@ -47,7 +45,7 @@ export function ajustarPalavras() {
     const faixaTexto = document.createRange();
     faixaTexto.selectNodeContents(el);
     const w = faixaTexto.getBoundingClientRect().width;
-    const util = tela.w - 2 * Math.min(72, Math.max(20, tela.w * 0.039));
+    const util = tela.w - 2 * Math.min(48, Math.max(20, tela.w * 0.04));
     const teto = tela.celular ? 64 : Math.min(tela.h * 0.2, 180);
     el.style.fontSize = `${Math.min(teto, (util / w) * 100).toFixed(2)}px`;
   });
@@ -55,37 +53,42 @@ export function ajustarPalavras() {
 
 export function medirHero() {
   const hero = document.querySelector('.hero');
-  const palavra = hero?.querySelector('.hero__palavra');
-  if (!palavra) { L.hero = null; return; }
-  const m = palavra._medida;
-  const W = tela.w;
+  const visual = hero?.querySelector('.hero__visual');
+  if (!hero || !visual) { L.hero = null; return; }
   const H = hero.getBoundingClientRect().height;
   const navH = tela.celular ? 64 : 96;
 
-  // a palavra gigante é só fundo: fica logo abaixo da nav e o texto legível começa depois dela
-  const palavraTopo = navH + (tela.celular ? 6 : 10);
-  const base = palavraTopo + m.alto;
-  const conteudoTopo = base + (tela.celular ? 20 : 28);
-
-  // o globo acompanha a rolagem; no celular fica mais abaixo, atrás da metade inferior do texto
-  const d = tela.celular ? W * 1.35 : Math.min(W * 0.46, H * 0.78);
-  const globoTopo = tela.celular
-    ? Math.max(base, conteudoTopo + 230)
-    : palavraTopo + m.alto * 0.55;
-
-  hero.style.setProperty('--palavra-topo', `${palavraTopo.toFixed(1)}px`);
+  // o conteúdo entra abaixo da nav, com respiro; o grid faz o resto
+  const conteudoTopo = navH + (tela.celular ? 24 : 56);
   hero.style.setProperty('--conteudo-topo', `${conteudoTopo.toFixed(1)}px`);
+
+  // ler o retângulo depois de escrever a variável força o reflow: medimos o grid já assentado
+  const r = visual.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = docTop(visual) + r.height / 2;
+  const d = tela.celular
+    ? Math.min(r.width * 1.1, r.height * 0.95, 460)
+    : Math.min(r.width * 1.04, r.height * 0.9, H * 0.62);
+  const globoTopo = cy - d / 2;
+  // o pontinho inicial nasce acima da capa para não ficar escondido atrás dela
+  const capaH = visual.querySelector('.hero__capa')?.getBoundingClientRect().height || 0;
+  const pontoOffset = capaH * 0.62;
+
   hero.style.setProperty('--globo-topo', `${globoTopo.toFixed(1)}px`);
   hero.style.setProperty('--globo-d', `${d.toFixed(1)}px`);
-  L.hero = { altura: H, topoLetras: palavraTopo, base, globoTopo, d };
+  hero.style.setProperty('--globo-cx', `${cx.toFixed(1)}px`);
+  hero.style.setProperty('--globo-cy', `${cy.toFixed(1)}px`);
+  L.hero = { altura: H, conteudoTopo, globoTopo, d, cx, cy, pontoOffset };
 }
 
 export function medirSecoes() {
   // o globo das regiões: cabe entre as duas colunas de texto
-  const margem = Math.min(72, Math.max(20, tela.w * 0.039));
+  const margem = Math.min(48, Math.max(20, tela.w * 0.04));
   L.r1 = tela.celular ? tela.w * 0.5 : Math.min(tela.h * 0.37, (tela.w - 2 * margem) * 0.225);
   document.documentElement.style.setProperty('--globo-regioes', `${(L.r1 * 2).toFixed(1)}px`);
   // cada medida só existe se a seção existe (tirar uma seção do index.html deixa a dela em null)
+  const ident = document.querySelector('.identidade');
+  L.identidade = ident ? { topo: docTop(ident), altura: ident.offsetHeight } : null;
   const reg = document.querySelector('.regioes');
   const a = reg?.querySelector('.regioes__bloco--a');
   const b = reg?.querySelector('.regioes__bloco--b');
